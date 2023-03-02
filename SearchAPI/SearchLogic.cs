@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SearchAPI;
 
-namespace SearchAPI
+public class SearchLogic
 {
-    public class SearchLogic
+    Database _database;
+    readonly Dictionary<string, int> _words;
+
+    public SearchLogic(Database database)
     {
-        Database mDatabase;
+        _database = database;
+        _words = _database.GetAllWords();
+    }
 
-        Dictionary<string, int> mWords;
+    public int GetIdOf(string word)
+    {
+        if (_words.TryGetValue(word, out int value))
+            return value;
+        return -1;
+    }
 
-        public SearchLogic(Database database)
-        {
-            mDatabase = database;
-            mWords = mDatabase.GetAllWords();
-        }
+    public List<KeyValuePair<int, int>> GetDocuments(List<int> wordIds)
+    {
+        return _database.GetDocuments(wordIds);
+    }
 
-        public int GetIdOf(string word)
-        {
-            if (mWords.ContainsKey(word))
-                return mWords[word];
-            return -1;
-        }
-
-        public List<KeyValuePair<int, int>> GetDocuments(List<int> wordIds)
-        {
-            return mDatabase.GetDocuments(wordIds);
-        }
-
-        public List<string> GetDocumentDetails(List<int> docIds)
-        {
-            return mDatabase.GetDocDetails(docIds);
-        }
+    public List<string> GetDocumentDetails(List<int> docIds)
+    {
+        return _database.GetDocDetails(docIds);
     }
 }
