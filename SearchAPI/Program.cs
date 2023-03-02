@@ -1,8 +1,16 @@
-using LoadBalancer.LoadBalancer.Strategies;
+using SearchAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string? loadBalancerURL = builder.Configuration.GetSection("LoadBalancerUrl").Value;
+if (loadBalancerURL is null)
+{
+    throw new ArgumentNullException(nameof(loadBalancerURL), "Failed to retrieve loadBalancer URL. Is it defined in appsettings.json?");
+}
+
+RegisterService.Register(loadBalancerURL, "");
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddEndpointsApiExplorer();

@@ -41,4 +41,11 @@ public class LoadBalancerController : ControllerBase
 
         return StatusCode(StatusCodes.Status500InternalServerError);
     }
+
+    [HttpPost]
+    public IActionResult RegisterService(string url) 
+    {
+            _loadBalancer.AddService(url);
+            return Ok();
+    }
 }
