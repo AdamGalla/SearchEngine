@@ -9,7 +9,6 @@ namespace SearchAPI.Controllers;
 [ApiController]
 public class SearchController : ControllerBase
 {
-
     // GET api/<ValuesController>/5
     [HttpGet("{input}")]
     public ActionResult<SeachWord> Search(string input)
