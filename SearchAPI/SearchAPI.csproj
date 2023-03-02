@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="RestSharp" Version="109.0.0-preview.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
@@ -16,6 +17,7 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\ConsoleSearch\ConsoleSearch.csproj" />
     <ProjectReference Include="..\Indexer\Indexer.csproj" />
+    <ProjectReference Include="..\LoadBalancer\LoadBalancer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchAPI", "SearchAPI\Sear
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchWebApp", "SearchWebApp\SearchWebApp.csproj", "{F5E614BD-BA3C-4540-88A0-166057905184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancer", "LoadBalancer\LoadBalancer.csproj", "{9B9A827C-BB8A-4828-8B1B-D0B113FD6952}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B9A827C-BB8A-4828-8B1B-D0B113FD6952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B9A827C-BB8A-4828-8B1B-D0B113FD6952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B9A827C-BB8A-4828-8B1B-D0B113FD6952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B9A827C-BB8A-4828-8B1B-D0B113FD6952}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
