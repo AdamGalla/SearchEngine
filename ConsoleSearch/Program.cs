@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace ConsoleSearch;
 
-namespace ConsoleSearch
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            new App().Run();
-        }
+        new App().Run();
     }
 }
