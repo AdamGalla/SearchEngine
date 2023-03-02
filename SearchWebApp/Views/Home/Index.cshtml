@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model SearchWebApp.Models.SearchWord;
+<div class="text-center">
+    <h1 class="display-4">WebSearch</h1>
+    <p>Please write a words you want to search for</p>
+    <form action="@Url.Action("Search", "Home")" method="get">
+        <input type="text" name="input" placeholder="Enter search text" />
+        <button type="submit">Search</button>
+    </form>
+    <h2>Search Results:</h2>
+
+    @if (Model != null)
+    {
+            <ul>
+            @foreach (var doc in Model.Top10Details)
+            {
+                            <li>@doc</li>
+            }
+            </ul>
+    }
+    
+</div>
