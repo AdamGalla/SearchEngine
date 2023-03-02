@@ -13,10 +13,15 @@
 
     @if (Model != null)
     {
-            <ul>
+        <p> "Time used:" @Html.DisplayFor(modelItem => Model.Used) </p>
+        <ul>
+            @{int idx = 0;}
             @foreach (var doc in Model.Top10Details)
             {
-                            <li>@doc</li>
+                    
+                <li>  @Html.DisplayFor(modelItem => doc) <p> -- contains @Html.DisplayFor(modelItem => Model.DocIds[idx].Value)
+                    search terms </p> </li>
+                idx++;
             }
             </ul>
     }
