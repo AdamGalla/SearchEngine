@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchAPI", "SearchAPI\SearchAPI.csproj", "{53FBC08A-8D10-44B1-8290-F03396B844BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSearch", "WebSearch\WebSearch.csproj", "{5E8F3BAC-4815-4112-838F-F26D6193B7FF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchWebApp", "SearchWebApp\SearchWebApp.csproj", "{F5E614BD-BA3C-4540-88A0-166057905184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchWebApp", "SearchWebApp\SearchWebApp.csproj", "{F5E614BD-BA3C-4540-88A0-166057905184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{53FBC08A-8D10-44B1-8290-F03396B844BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53FBC08A-8D10-44B1-8290-F03396B844BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53FBC08A-8D10-44B1-8290-F03396B844BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E8F3BAC-4815-4112-838F-F26D6193B7FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E8F3BAC-4815-4112-838F-F26D6193B7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E8F3BAC-4815-4112-838F-F26D6193B7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E8F3BAC-4815-4112-838F-F26D6193B7FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E614BD-BA3C-4540-88A0-166057905184}.Release|Any CPU.ActiveCfg = Release|Any CPU
