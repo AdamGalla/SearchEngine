@@ -9,7 +9,8 @@ if (loadBalancerURL is null)
     throw new ArgumentNullException(nameof(loadBalancerURL), "Failed to retrieve loadBalancer URL. Is it defined in appsettings.json?");
 }
 
-RegisterService.Register(loadBalancerURL, "");
+//TODO: Make it send its url
+RegisterService.Register(loadBalancerURL, "URL HERE?");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
