@@ -1,4 +1,6 @@
-﻿namespace LoadBalancer.LoadBalancer;
+﻿
+
+namespace LoadBalancer.LoadBalancer;
 
 public class LoadBalancer : ILoadBalancer
 {
