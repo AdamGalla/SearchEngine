@@ -15,8 +15,8 @@ public class App
             Console.WriteLine("enter search terms - q for quit");
             string input = Console.ReadLine() ?? string.Empty;
             if (input.Equals("q")) break;
-            var searchWord = new SearchWord();
-            searchWord = ApiClient.GetSearchData(input);
+
+            var searchWord = ApiClient.GetSearchData(input);
             
             int idx = 0;
 

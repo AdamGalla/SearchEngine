@@ -1,15 +1,26 @@
 version: '3.4'
 
-services:
-  searchapi:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
+#services:
+#  searchapi:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_URLS=https://+:443;http://+:80
+#    volumes:
+#      - ${APPDATA}/ASP.NET/Https:/https:ro
+#    ports:
+#      - "6002-6003:80"
+#      - "6004-6005:443"
 
-  loadbalancer:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-
+#  loadbalancer:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_URLS=http://+:80;https://+:443
+#    volumes:
+#      - ${APPDATA}/ASP.NET/Https:/https:ro
+#    ports:
+#      - target: 80
+#        published: 8000
+#        mode: host
+#      - target: 443
+#        published: 8001
+#        mode: host

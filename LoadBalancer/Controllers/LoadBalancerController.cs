@@ -53,11 +53,11 @@ public class LoadBalancerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult RegisterService(string serviceName) 
+    public IActionResult RegisterService([FromRoute] string serviceUrl) 
     {
         string url = Request.Host.ToUriComponent().ToString();
-        _logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", serviceName, url);
-        int returnedId = _loadBalancer.AddService(new Service() { Name = serviceName, Uri = url });
+        _logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", serviceUrl, serviceUrl);
+        int returnedId = _loadBalancer.AddService(new Service() { Name = serviceUrl, Uri = url });
         _logger.LogInformation("Registered Service Id: {Id}", returnedId);
         return Ok();
     }

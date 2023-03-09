@@ -1,16 +1,40 @@
 version: '3.4'
 
 services:
-  searchapi:
-    image: ${DOCKER_REGISTRY-}searchapi
-    build:
-      context: .
-      dockerfile: SearchAPI/Dockerfile
-    deploy:
-        replicas: 2
-
   loadbalancer:
     image: ${DOCKER_REGISTRY-}loadbalancer
     build:
       context: .
       dockerfile: LoadBalancer/Dockerfile
+    depends_on:
+      - searchapi
+    ports:
+      - 9000:80
+
+  searchapi:
+    image: ${DOCKER_REGISTRY-}searchapi
+    build:
+      context: .
+      dockerfile: SearchAPI/Dockerfile
+    volumes:
+      - C:/DLS/SearchEngine.db
+    deploy:
+        replicas: 2
+
+
+    #environment:
+    #  - ASPNETCORE_URLS=http://+:80;https://+:443
+    #volumes:
+    #  - ${APPDATA}/ASP.NET/Https:/https:ro
+    #ports:
+    #  - target: 80
+    #    published: 8000
+    #    mode: host
+    #  - target: 443
+    #    published: 8001
+    #    mode: host
+
+
+# Specify https port for the loadbalancer
+# Make the Website and console app call that lodbalancer url
+# Make the SearchAPI properly regeister in the loadbalancer

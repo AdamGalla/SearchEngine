@@ -24,7 +24,7 @@ public class SearchController : ControllerBase
         else
         {
             _logger.LogInformation("Registering self to loadbalancer... {LoadBalancerUrl} -> {Name}", loadBalancerURL, Environment.MachineName);
-            var returnedStatusCode = RegisterService.Register(loadBalancerURL, Environment.MachineName);
+            var returnedStatusCode = RegisterService.Register(loadBalancerURL, $"http://{Environment.MachineName}");
             _logger.LogInformation("Registration result: {StatusCode}", ((int)returnedStatusCode));
         }
     }
