@@ -2,7 +2,7 @@
 
 public class LoadBalancer : ILoadBalancer
 {
-    List<string> _services = new List<string>();
+    List<Service> _services = new List<Service>();
     ILoadBalancerStrategy _strategy;
 
     public LoadBalancer(ILoadBalancerStrategy strategy)
@@ -10,9 +10,9 @@ public class LoadBalancer : ILoadBalancer
         SetActiveStrategy(strategy);
     }
 
-    public int AddService(string url)
+    public int AddService(Service service)
     {
-        _services.Add(url);
+        _services.Add(service);
         return _services.Count - 1; // return the index of the last service
     }
 
@@ -21,19 +21,19 @@ public class LoadBalancer : ILoadBalancer
         return _strategy;
     }
 
-    public List<string> GetAllServices()
+    public List<Service> GetAllServices()
     {
         return _services;
     }
 
-    public string NextService()
+    public Service NextService()
     {
         return _strategy.NextService(_services);
     }
 
     public int RemoveService(string url)
     {
-        return _services.Remove(url) ? 1 : 0;
+        return _services.Remove(_services.First(service => service.Uri.Equals(url))) ? 1 : 0;
     }
 
     public void SetActiveStrategy(ILoadBalancerStrategy strategy)
