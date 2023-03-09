@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  searchapi:
+    image: ${DOCKER_REGISTRY-}searchapi
+    build:
+      context: .
+      dockerfile: SearchAPI/Dockerfile
+    deploy:
+        replicas: 2
+
+  loadbalancer:
+    image: ${DOCKER_REGISTRY-}loadbalancer
+    build:
+      context: .
+      dockerfile: LoadBalancer/Dockerfile

@@ -1,14 +1,15 @@
 ﻿using RestSharp;
+using System.Net;
 
 namespace SearchAPI;
 
 public class RegisterService
 {
-    public static void Register(string loadBalancerUrl, string serviceUrl)
+    public static HttpStatusCode Register(string loadBalancerUrl, string serviceName)
     {
         var client = new RestClient(loadBalancerUrl);
-        var request = new RestRequest($"RegisterService/{serviceUrl}", Method.Post);
+        var request = new RestRequest($"RegisterService/{serviceName}", Method.Post);
         var queryResult = client.Execute(request);
-        //TODO: Log Result
+        return queryResult.StatusCode;
     }
 }

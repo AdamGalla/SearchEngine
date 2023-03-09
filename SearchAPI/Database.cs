@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Common;
+﻿using Common;
 using Microsoft.Data.Sqlite;
 
 namespace SearchAPI;

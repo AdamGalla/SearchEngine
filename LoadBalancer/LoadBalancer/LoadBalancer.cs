@@ -13,7 +13,7 @@ public class LoadBalancer : ILoadBalancer
     public int AddService(string url)
     {
         _services.Add(url);
-        return _services.Count - 1;
+        return _services.Count - 1; // return the index of the last service
     }
 
     public ILoadBalancerStrategy GetActiveStrategy()

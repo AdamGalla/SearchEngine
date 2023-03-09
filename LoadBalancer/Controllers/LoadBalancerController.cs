@@ -7,11 +7,14 @@ namespace LoadBalancer.Controllers;
 [ApiController]
 public class LoadBalancerController : ControllerBase
 {
-    private ILoadBalancer _loadBalancer;
+    private readonly ILoadBalancer _loadBalancer;
+    private readonly ILogger<LoadBalancerController> _logger;
 
-    public LoadBalancerController(ILoadBalancer loadBalancer)
+    public LoadBalancerController(ILoadBalancer loadBalancer, ILogger<LoadBalancerController> logger)
     {
         _loadBalancer = loadBalancer;
+        _logger = logger;
+        _logger.LogInformation("LoadBalancer started...");
     }
 
     [HttpGet]
@@ -34,7 +37,10 @@ public class LoadBalancerController : ControllerBase
             }
             else
             {
-                _loadBalancer.RemoveService(url);
+                if (((int)queryResult.StatusCode) > 500)
+                {
+                    _loadBalancer.RemoveService(url);
+                }
             }
         }
         while(_loadBalancer.GetAllServices().Count != 0);
@@ -43,9 +49,12 @@ public class LoadBalancerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult RegisterService(string url) 
+    public IActionResult RegisterService(string serviceName) 
     {
-            _loadBalancer.AddService(url);
-            return Ok();
+        string url = Request.Host.ToUriComponent().ToString();
+        _logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", serviceName, url);
+        int returnedId = _loadBalancer.AddService(url);
+        _logger.LogInformation("Registered Service Id: {Id}", returnedId);
+        return Ok();
     }
 }
