@@ -24,7 +24,7 @@ public class LoadBalancerController : ControllerBase
         RestResponse queryResult;
         do
         {
-            string url = _loadBalancer.NextService();
+            string url = _loadBalancer.NextService().Uri;
 
             var client = new RestClient();
             var request = new RestRequest($"{url}/{input}", Method.Get);
@@ -53,7 +53,7 @@ public class LoadBalancerController : ControllerBase
     {
         string url = Request.Host.ToUriComponent().ToString();
         _logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", serviceName, url);
-        int returnedId = _loadBalancer.AddService(url);
+        int returnedId = _loadBalancer.AddService(new Service() { Name = serviceName, Uri = url });
         _logger.LogInformation("Registered Service Id: {Id}", returnedId);
         return Ok();
     }

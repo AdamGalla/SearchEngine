@@ -4,9 +4,9 @@ public class RoundRobbinStrategy : ILoadBalancerStrategy
 {
     private int currentService = 0;
 
-    public string NextService(List<string> services)
+    public Service NextService(List<Service> services)
     {
-        string selectedService = services[currentService];
+        Service selectedService = services[currentService];
 
         currentService++;
         if(currentService >= services.Count)
