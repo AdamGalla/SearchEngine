@@ -2,5 +2,5 @@
 
 public interface ILoadBalancerStrategy
 {
-    public string NextService(List<string> services);
+    public string NextService(List<Service> services);
 }
