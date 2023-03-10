@@ -1,10 +1,10 @@
-﻿using LoadBalancer.LoadBalancer;
+﻿using LoadBalancer.LoadBalancerLogic;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using System.Diagnostics;
 
 namespace LoadBalancer.Controllers;
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class LoadBalancerController : ControllerBase
 {
@@ -18,7 +18,7 @@ public class LoadBalancerController : ControllerBase
         _logger.LogInformation("LoadBalancer started...");
     }
 
-    [HttpGet]
+    [HttpGet ("{input}")]
     public IActionResult Search(string input)
     {
         var timer = Stopwatch.StartNew();

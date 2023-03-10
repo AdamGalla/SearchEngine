@@ -11,7 +11,7 @@ internal class ApiClient
         using var client = new WebClient();
         client.Headers.Add("Content-Type:application/json");
         client.Headers.Add("Accept:application/json");
-        var json = client.DownloadString("http://localhost:9000/Search/" + input);
+        var json = client.DownloadString("http://localhost:9000/LoadBalancer/" + input);
         var searchWord = JsonConvert.DeserializeObject<SearchWord>(json);
         return searchWord;
 

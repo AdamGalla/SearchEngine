@@ -1,13 +1,13 @@
 ﻿
 
-namespace LoadBalancer.LoadBalancer;
+namespace LoadBalancer.LoadBalancerLogic;
 
-public class LoadBalancer : ILoadBalancer
+public class LoadBalancerMain : ILoadBalancer
 {
     List<Service> _services = new List<Service>();
     ILoadBalancerStrategy _strategy;
 
-    public LoadBalancer(ILoadBalancerStrategy strategy)
+    public LoadBalancerMain(ILoadBalancerStrategy strategy)
     {
         SetActiveStrategy(strategy);
     }

@@ -5,12 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-//var restClient = new RestClient("https://loadbalancer/");
-//restClient.Post(new RestRequest("RegisterService", Method.Post)
-//    .AddJsonBody(new
-//    {
-//        Url = "http://" + Environment.MachineName,
-//    }));
+var restClient = new RestClient("http://loadbalancer/");
+restClient.Post(new RestRequest("RegisterService", Method.Post)
+    .AddJsonBody(new
+    {
+        Url = "http://" + Environment.MachineName,
+    }));
 Console.WriteLine("Hostname: " + Environment.MachineName);
 
 var configuration = builder.Configuration;

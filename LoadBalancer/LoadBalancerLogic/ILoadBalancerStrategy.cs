@@ -1,4 +1,4 @@
-﻿namespace LoadBalancer.LoadBalancer;
+﻿namespace LoadBalancer.LoadBalancerLogic;
 
 public interface ILoadBalancerStrategy
 {
