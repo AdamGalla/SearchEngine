@@ -5,34 +5,34 @@ using SearchAPI.Models;
 
 namespace SearchAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class SearchController : ControllerBase
 {
-    private readonly Logger<SearchController> _logger;
+   
     private readonly IConfiguration _configuration;
-    public SearchController(Logger<SearchController> logger, IConfiguration configuration)
+    public SearchController(IConfiguration configuration)
     {
-        _logger = logger;
         _configuration = configuration;
-        // Register self in the loadbalancer
-        string? loadBalancerURL = configuration.GetSection("LoadBalancerUrl").Value;
-        if (loadBalancerURL is null)
-        {
-            _logger.LogWarning("Failed to retrieve loadBalancer URL. Is it defined in appsettings.json?");
-        }
-        else
-        {
-            _logger.LogInformation("Registering self to loadbalancer... {LoadBalancerUrl} -> {Name}", loadBalancerURL, Environment.MachineName);
-            var returnedStatusCode = RegisterService.Register(loadBalancerURL, $"http://{Environment.MachineName}");
-            _logger.LogInformation("Registration result: {StatusCode}", ((int)returnedStatusCode));
-        }
+        //// Register self in the loadbalancer
+        //string? loadBalancerURL = configuration.GetSection("LoadBalancerUrl").Value;
+        //if (loadBalancerURL is null)
+        //{
+        //    _logger.LogWarning("Failed to retrieve loadBalancer URL. Is it defined in appsettings.json?");
+        //}
+        //else
+        //{
+        //    _logger.LogInformation("Registering self to loadbalancer... {LoadBalancerUrl} -> {Name}", loadBalancerURL, Environment.MachineName);
+        //    var returnedStatusCode = RegisterService.Register(loadBalancerURL, $"http://{Environment.MachineName}");
+        //    _logger.LogInformation("Registration result: {StatusCode}", ((int)returnedStatusCode));
+        //}
     }
 
     // GET api/<ValuesController>/5
     [HttpGet("{input}")]
     public ActionResult<SeachWord> Search(string input)
     {
+        Console.Write($"Searching for: {input}");
         SearchLogic mSearchLogic = new SearchLogic(new Database());
         var wordIds = new List<int>();
         var searchTerms = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);

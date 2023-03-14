@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: LoadBalancer/Dockerfile
-    depends_on:
-      - searchapi
     ports:
       - 9000:80
 
@@ -17,9 +15,11 @@ services:
       context: .
       dockerfile: SearchAPI/Dockerfile
     volumes:
-      - C:/DLS/SearchEngine.db
+      - C://data/data.db:/data
     deploy:
         replicas: 2
+    depends_on:
+      - loadbalancer
 
 
     #environment:

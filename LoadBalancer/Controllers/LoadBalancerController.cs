@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LoadBalancer.Controllers;
 [Route("[controller]")]
@@ -18,21 +19,24 @@ public class LoadBalancerController : ControllerBase
         _logger.LogInformation("LoadBalancer started...");
     }
 
-    [HttpGet ("{input}")]
+    [HttpGet("search/{input}")]
     public IActionResult Search(string input)
     {
-        var timer = Stopwatch.StartNew();
-        RestResponse queryResult;
-        do
+        Console.WriteLine($"Started searching for Word: {input}");
+        try 
         {
+            var timer = Stopwatch.StartNew();
+            RestResponse queryResult;
+            //do
+            //{
             timer.Restart();
             var currentService = _loadBalancer.NextService();
-
+            Console.WriteLine(currentService.Uri);
             var client = new RestClient();
-            var request = new RestRequest($"{currentService.Uri}/{input}", Method.Get);
+            var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
 
             queryResult = client.Execute(request);
-
+            Console.WriteLine(queryResult.IsSuccessStatusCode);
             if (queryResult.IsSuccessStatusCode)
             {
                 timer.Stop();
@@ -46,19 +50,24 @@ public class LoadBalancerController : ControllerBase
                     _loadBalancer.RemoveService(currentService.Uri);
                 }
             }
-        }
-        while(_loadBalancer.GetAllServices().Count != 0);
+        }catch(Exception ex) {Console.WriteLine(ex.Message);}
+        
+        //}
+        //while (_loadBalancer.GetAllServices().Count != 0);
 
         return StatusCode(StatusCodes.Status500InternalServerError);
     }
 
-    [HttpPost]
-    public IActionResult RegisterService([FromRoute] string serviceUrl) 
+    [HttpPost("RegisterService")]
+    public IActionResult RegisterService([FromBody] dynamic Url)
     {
-        string url = Request.Host.ToUriComponent().ToString();
-        _logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", serviceUrl, serviceUrl);
-        int returnedId = _loadBalancer.AddService(new Service() { Name = serviceUrl, Uri = url });
-        _logger.LogInformation("Registered Service Id: {Id}", returnedId);
+        string url = Url.GetProperty("Url").GetString();
+        //string url = Request.Host.ToUriComponent().ToString();
+        Console.WriteLine($"Adding Service to pool {url} | {url}");
+        //_logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", Url, Url);
+        int returnedId = _loadBalancer.AddService(new Service() { Name = url, Uri = url });
+        //_logger.LogInformation("Registered Service Id: {Id}", returnedId);
+        Console.WriteLine($"Registered Service Id: {returnedId}");
         return Ok();
     }
 }
