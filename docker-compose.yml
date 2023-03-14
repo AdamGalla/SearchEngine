@@ -15,7 +15,7 @@ services:
       context: .
       dockerfile: SearchAPI/Dockerfile
     volumes:
-      - C://data/data.db:/data
+      - D:/data/data.db:/data/data.db
     deploy:
         replicas: 2
     depends_on:
