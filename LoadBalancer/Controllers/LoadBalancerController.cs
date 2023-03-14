@@ -23,33 +23,25 @@ public class LoadBalancerController : ControllerBase
     public ActionResult<SearchWord> Search(string input)
     {
         Console.WriteLine($"Started searching for Word: {input}");
-        try 
+        try
         {
             var timer = Stopwatch.StartNew();
             RestResponse<SearchWord> queryResult;
-            //do
-            //{
-            timer.Restart();
-            var currentService = _loadBalancer.NextService();
-            Console.WriteLine(currentService.Uri);
-            var client = new RestClient();
-            var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
+            do
+            {
+                timer.Restart();
+                var currentService = _loadBalancer.NextService();
+                Console.WriteLine(currentService.Uri);
+                var client = new RestClient();
+                var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
 
-            queryResult = client.Execute<SearchWord>(request);
-            Console.WriteLine(queryResult.IsSuccessStatusCode);
-            if (queryResult.IsSuccessStatusCode)
-            {
-                timer.Stop();
-                currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
-                return Ok(queryResult.Data);
-            }
-            else
-            {
-                if (((int)queryResult.StatusCode) > 500)
+                queryResult = client.Execute<SearchWord>(request);
+                Console.WriteLine(queryResult.IsSuccessStatusCode);
+                if (queryResult.IsSuccessStatusCode)
                 {
                     timer.Stop();
                     currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
-                    return Ok(queryResult.Content);
+                    return Ok(queryResult.Data);
                 }
                 else
                 {
