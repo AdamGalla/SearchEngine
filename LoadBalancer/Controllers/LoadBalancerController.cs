@@ -27,33 +27,37 @@ public class LoadBalancerController : ControllerBase
         {
             var timer = Stopwatch.StartNew();
             RestResponse queryResult;
-            //do
-            //{
-            timer.Restart();
-            var currentService = _loadBalancer.NextService();
-            Console.WriteLine(currentService.Uri);
-            var client = new RestClient();
-            var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
+            do
+            {
+                timer.Restart();
+                var currentService = _loadBalancer.NextService();
+                Console.WriteLine(currentService.Uri);
+                var client = new RestClient();
+                var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
 
-            queryResult = client.Execute(request);
-            Console.WriteLine(queryResult.IsSuccessStatusCode);
-            if (queryResult.IsSuccessStatusCode)
-            {
-                timer.Stop();
-                currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
-                return Ok(queryResult.Content);
-            }
-            else
-            {
-                if (((int)queryResult.StatusCode) > 500)
+                queryResult = client.Execute(request);
+                Console.WriteLine(queryResult.IsSuccessStatusCode);
+                if (queryResult.IsSuccessStatusCode)
                 {
-                    _loadBalancer.RemoveService(currentService.Uri);
+                    timer.Stop();
+                    currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
+                    return Ok(queryResult.Content);
+                }
+                else
+                {
+                    if (((int)queryResult.StatusCode) > 500)
+                    {
+                        Console.WriteLine($"Removed serice {currentService.Uri} due to status code {queryResult.StatusCode}");
+                        _loadBalancer.RemoveService(currentService.Uri);
+                    }
                 }
             }
-        }catch(Exception ex) {Console.WriteLine(ex.Message);}
-        
-        //}
-        //while (_loadBalancer.GetAllServices().Count != 0);
+            while (_loadBalancer.GetAllServices().Count != 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
 
         return StatusCode(StatusCodes.Status500InternalServerError);
     }
