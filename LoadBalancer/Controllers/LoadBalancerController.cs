@@ -47,13 +47,25 @@ public class LoadBalancerController : ControllerBase
             {
                 if (((int)queryResult.StatusCode) > 500)
                 {
-                    _loadBalancer.RemoveService(currentService.Uri);
+                    timer.Stop();
+                    currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
+                    return Ok(queryResult.Content);
+                }
+                else
+                {
+                    if (((int)queryResult.StatusCode) > 500)
+                    {
+                        Console.WriteLine($"Removed serice {currentService.Uri} due to status code {queryResult.StatusCode}");
+                        _loadBalancer.RemoveService(currentService.Uri);
+                    }
                 }
             }
-        }catch(Exception ex) {Console.WriteLine(ex.Message);}
-        
-        //}
-        //while (_loadBalancer.GetAllServices().Count != 0);
+            while (_loadBalancer.GetAllServices().Count != 0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
 
         return StatusCode(StatusCodes.Status500InternalServerError);
     }
