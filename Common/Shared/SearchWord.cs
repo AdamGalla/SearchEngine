@@ -1,4 +1,4 @@
-﻿namespace SearchWebApp.Models;
+﻿namespace Common.Shared;
 
 public class SearchWord
 {

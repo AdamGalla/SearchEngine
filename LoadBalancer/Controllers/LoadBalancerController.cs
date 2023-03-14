@@ -1,8 +1,8 @@
-﻿using LoadBalancer.LoadBalancerLogic;
+﻿using Common.Shared;
+using LoadBalancer.LoadBalancerLogic;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LoadBalancer.Controllers;
 [Route("[controller]")]
@@ -20,13 +20,13 @@ public class LoadBalancerController : ControllerBase
     }
 
     [HttpGet("search/{input}")]
-    public IActionResult Search(string input)
+    public ActionResult<SearchWord> Search(string input)
     {
         Console.WriteLine($"Started searching for Word: {input}");
         try 
         {
             var timer = Stopwatch.StartNew();
-            RestResponse queryResult;
+            RestResponse<SearchWord> queryResult;
             //do
             //{
             timer.Restart();
@@ -35,13 +35,13 @@ public class LoadBalancerController : ControllerBase
             var client = new RestClient();
             var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
 
-            queryResult = client.Execute(request);
+            queryResult = client.Execute<SearchWord>(request);
             Console.WriteLine(queryResult.IsSuccessStatusCode);
             if (queryResult.IsSuccessStatusCode)
             {
                 timer.Stop();
                 currentService.AddLatestResponseTime(timer.ElapsedMilliseconds);
-                return Ok(queryResult.Content);
+                return Ok(queryResult.Data);
             }
             else
             {

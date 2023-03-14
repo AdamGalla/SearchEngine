@@ -1,4 +1,4 @@
-﻿using ConsoleSearch.Models;
+﻿using Common.Shared;
 using System;
 
 namespace ConsoleSearch;

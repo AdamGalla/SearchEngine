@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SearchAPI.Models;
+using Common.Shared;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,7 +30,7 @@ public class SearchController : ControllerBase
 
     // GET api/<ValuesController>/5
     [HttpGet("{input}")]
-    public ActionResult<SeachWord> Search(string input)
+    public ActionResult<SearchWord> Search(string input)
     {
         Console.Write($"Searching for: {input}");
         SearchLogic mSearchLogic = new SearchLogic(new Database());
@@ -63,7 +63,7 @@ public class SearchController : ControllerBase
         TimeSpan used = DateTime.Now - start;
        
         List<string>? top10details = mSearchLogic.GetDocumentDetails(top10);
-        var seachWord = new SeachWord()
+        var seachWord = new SearchWord()
         {
             DocIds = docIds,
             Top10 = top10,

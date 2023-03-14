@@ -1,19 +1,21 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 using SearchWebApp.Models;
+using RestSharp;
+using Common.Shared;
 
 namespace SearchWebApp;
 
 internal class ApiClient
 {
-    public static SearchWord GetSearchData(string input) 
+    public static SearchWord GetSearchData(string input)
     {
-        using var client = new WebClient();
-        client.Headers.Add("Content-Type:application/json");
-        client.Headers.Add("Accept:application/json");
-        var json = client.DownloadString("http://localhost:9000/LoadBalancer/" + input);
-        var searchWord = JsonConvert.DeserializeObject<SearchWord>(json);
-        return searchWord;
-
+        var client = new RestClient("http://localhost:9000/LoadBalancer");
+        var request = new RestRequest("search/{input}", Method.Get);
+        request.AddParameter("input", input, ParameterType.UrlSegment);
+        request.AddHeader("Content-Type", "application/json");
+        request.AddHeader("Accept", "application/json");
+        var response = client.Execute<SearchWord>(request);
+        return response.Data;
     }
 }
