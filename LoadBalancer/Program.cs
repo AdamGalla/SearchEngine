@@ -4,7 +4,7 @@ using LoadBalancer.LoadBalancerLogic;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Add services to the container.
-builder.Services.AddSingleton<ILoadBalancer>(loadBalancer => new LoadBalancerMain(new RoundRobbinStrategy()));
+builder.Services.AddSingleton<ILoadBalancer>(loadBalancer => new LoadBalancerMain(new LeastResponseTimeStrategy()));
 
 builder.Services.AddLogging(logging =>
 {
