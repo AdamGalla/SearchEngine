@@ -19,6 +19,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFormatter", "DataFormater\DataFormatter.csproj", "{B10BABF9-213B-46FC-8B51-0D53AF82531D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataFormatter", "..\TestDataFormatter\TestDataFormatter.csproj", "{2FF3F787-D996-4F24-A5CE-C189F3BD06E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +55,21 @@ Global
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{68F78325-DE51-448E-A618-51496BD812AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F78325-DE51-448E-A618-51496BD812AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F78325-DE51-448E-A618-51496BD812AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F78325-DE51-448E-A618-51496BD812AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FF3F787-D996-4F24-A5CE-C189F3BD06E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FF3F787-D996-4F24-A5CE-C189F3BD06E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FF3F787-D996-4F24-A5CE-C189F3BD06E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FF3F787-D996-4F24-A5CE-C189F3BD06E5}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
