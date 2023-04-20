@@ -33,7 +33,16 @@ public class LoadBalancerController : ControllerBase
                 var request = new RestRequest($"http://{currentService.Uri}/Search/{input}", Method.Get);
 
                 queryResult = client.Execute<SearchWord>(request);
-                Console.WriteLine(queryResult.IsSuccessStatusCode);
+                //Console.WriteLine(queryResult.IsSuccessStatusCode);
+                
+                var services = _loadBalancer.GetAllServices();
+                foreach (var service in services) 
+                {
+                    
+                    Console.WriteLine("Service name:" + service.Uri);
+                    Console.WriteLine("Service response time:" + service.AverageResponseTime);
+                }
+                
                 if (queryResult.IsSuccessStatusCode)
                 {
                     timer.Stop();
