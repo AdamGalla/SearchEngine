@@ -5,8 +5,8 @@
 <div class="text-center">
     <h1 class="display-4">WebSearch</h1>
     <p>Please write a words you want to search for</p>
-    <form action="@Url.Action("Search", "Home")" method="get">
-        <input type="text" name="input" placeholder="Enter search text" />
+    <form id="search-form" action="@Url.Action("Search", "Home")" method="get">
+        <input id="searchInput" type="text" name="input" placeholder="Enter search text" />
         <button type="submit">Search</button>
     </form>
     <h2>Search Results:</h2>
@@ -24,6 +24,11 @@
                 idx++;
             }
             </ul>
+        <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
+            <input type="text" name="FormatType" placeholder="Select a format"/>
+            <button type="submit">Format the data</button>
+        </form>
     }
-    
+
+
 </div>

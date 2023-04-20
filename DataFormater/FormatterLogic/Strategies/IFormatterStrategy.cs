@@ -1,4 +1,4 @@
-﻿using DataFormatter.FormatterLogic.Model;
+using DataFormatter.FormatterLogic.Model;
 
 namespace DataFormatter.FormatterLogic.Strategies;
 
