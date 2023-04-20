@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadBalancer", "LoadBalance
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3068B651-2A52-4FA9-B83E-1159B3B700AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFormater", "DataFormater\DataFormater.csproj", "{B10BABF9-213B-46FC-8B51-0D53AF82531D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3068B651-2A52-4FA9-B83E-1159B3B700AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10BABF9-213B-46FC-8B51-0D53AF82531D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
