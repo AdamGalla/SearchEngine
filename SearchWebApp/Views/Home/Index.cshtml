@@ -24,22 +24,11 @@
                 idx++;
             }
             </ul>
-        <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get" onsubmit="submitSecondForm()">
-            <input id="formatInput" name="SearchWorldFormat" type="hidden" name="FormatSearchWord"/>
-            <input type="hidden" name="DocIds" value=@Model.DocIds />
-            <input type="hidden" name="Top10" value=@Model.Top10 />
-            <input type="hidden" name="Top10Details" value=@Model.Top10Details />
-            <input type="hidden" name="Used" value=@Model.Used />
+        <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
             <input type="text" name="FormatType" placeholder="Select a format"/>
             <button type="submit">Format the data</button>
         </form>
     }
-    
-    <script>
-        function submitSecondForm() {
-            var input = document.getElementById("searchInput").value;
-            document.getElementById("formatInput").value = input;
-        }
-    </script>
+
 
 </div>

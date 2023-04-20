@@ -9,11 +9,11 @@ public class HomeController : Controller
 {
 
     private readonly ILogger<HomeController> _logger;
-    private SearchWord searchResult; 
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ApiClient _apiClient;
+    public HomeController(ILogger<HomeController> logger, ApiClient apiClient)
     {
         _logger = logger;
+        _apiClient = apiClient;
     }
 
     public IActionResult Index()
@@ -24,7 +24,7 @@ public class HomeController : Controller
     [HttpGet]
     public ActionResult Search(string input)
     {
-        var searchWord = ApiClient.GetSearchData(input);
+        var searchWord = _apiClient.GetSearchData(input);
         ViewBag.prevInput = input;
         return View("Index", searchWord);
     }
@@ -32,7 +32,7 @@ public class HomeController : Controller
     public ActionResult FormatData(string formatType)
     {
 
-        var formatResult = ApiClient.GetFormattedData(formatType);
+        var formatResult = _apiClient.GetFormattedData(formatType);
         ViewBag.prevInput = formatType;
         return View("Index", formatResult);
     }
