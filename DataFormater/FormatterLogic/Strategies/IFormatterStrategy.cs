@@ -4,5 +4,5 @@ namespace DataFormatter.FormatterLogic.Strategies;
 
 public interface IFormatterStrategy
 {
-    public string FormatText(FileData fileData);
+    public string FormatText(FileData data);
 }

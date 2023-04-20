@@ -5,8 +5,8 @@
 <div class="text-center">
     <h1 class="display-4">WebSearch</h1>
     <p>Please write a words you want to search for</p>
-    <form action="@Url.Action("Search", "Home")" method="get">
-        <input type="text" name="input" placeholder="Enter search text" />
+    <form id="search-form" action="@Url.Action("Search", "Home")" method="get">
+        <input id="searchInput" type="text" name="input" placeholder="Enter search text" />
         <button type="submit">Search</button>
     </form>
     <h2>Search Results:</h2>
@@ -24,6 +24,22 @@
                 idx++;
             }
             </ul>
+        <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get" onsubmit="submitSecondForm()">
+            <input id="formatInput" name="SearchWorldFormat" type="hidden" name="FormatSearchWord"/>
+            <input type="hidden" name="DocIds" value=@Model.DocIds />
+            <input type="hidden" name="Top10" value=@Model.Top10 />
+            <input type="hidden" name="Top10Details" value=@Model.Top10Details />
+            <input type="hidden" name="Used" value=@Model.Used />
+            <input type="text" name="FormatType" placeholder="Select a format"/>
+            <button type="submit">Format the data</button>
+        </form>
     }
     
+    <script>
+        function submitSecondForm() {
+            var input = document.getElementById("searchInput").value;
+            document.getElementById("formatInput").value = input;
+        }
+    </script>
+
 </div>

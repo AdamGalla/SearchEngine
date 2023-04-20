@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Shared;
+using Microsoft.AspNetCore.Mvc;
 using SearchWebApp.Models;
 using System.Diagnostics;
 
@@ -6,7 +7,9 @@ namespace SearchWebApp.Controllers;
 
 public class HomeController : Controller
 {
+
     private readonly ILogger<HomeController> _logger;
+    private SearchWord searchResult; 
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -24,6 +27,14 @@ public class HomeController : Controller
         var searchWord = ApiClient.GetSearchData(input);
         ViewBag.prevInput = input;
         return View("Index", searchWord);
+    }
+    [HttpGet]
+    public ActionResult FormatData(string formatType)
+    {
+
+        var formatResult = ApiClient.GetFormattedData(formatType);
+        ViewBag.prevInput = formatType;
+        return View("Index", formatResult);
     }
 
     public IActionResult Privacy()
