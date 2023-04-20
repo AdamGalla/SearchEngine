@@ -22,10 +22,10 @@ public class TracingMiddleware
                 return new[] { value.ToString() };
             }
 
-            return null;
+            return Enumerable.Empty<string>();
         });
 
-        using var activity = Monitoring.ActivitySource.StartActivity("Received HTTP request", ActivityKind.Server, parentContext.ActivityContext);
+        using var activity = Monitoring.ActivitySource.StartActivity("Received HTTP request", ActivityKind.Consumer, parentContext.ActivityContext);
 
         await _next(context);
     }
