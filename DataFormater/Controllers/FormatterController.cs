@@ -1,6 +1,7 @@
 ﻿using DataFormatter.FormatterLogic.Model;
 using DataFormatter.StrategyFactory;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace DataFormater.Controllers;
 
@@ -16,7 +17,7 @@ public class FormatterController : ControllerBase
 
     // GET api/<Formatter>/{strategy}
     [HttpGet("{strategy}")]
-    public ActionResult<string> Get([FromBody] FileData data, string strategy)
+    public async Task<ActionResult<string>> GetAsync([FromBody] FileData data, string strategy)
     {
         if (data is null)
         {
@@ -25,10 +26,10 @@ public class FormatterController : ControllerBase
 
         if (!Enum.TryParse<StrategyType>(strategy, out var strategyType))
         {
-            return BadRequest($"Unknown strategy type {strategy}!");
+            return BadRequest($"Unknown strategy type {strategy}! Possible values are: {Enum.GetNames(typeof(StrategyType)).Select(s => s.ToString()).ToList()}");
         }
 
-        string result = _strategyFactory.GetStrategyType(strategyType).FormatText(data);
+        string result = await _strategyFactory.GetStrategyType(strategyType).FormatTextAsync(data);
         return Ok(result);
     }
 }
