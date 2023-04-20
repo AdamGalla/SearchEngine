@@ -24,3 +24,10 @@ version: '3.4'
 #      - target: 443
 #        published: 8001
 #        mode: host
+services:
+  dataformatter:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

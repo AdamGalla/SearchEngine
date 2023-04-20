@@ -21,20 +21,11 @@ services:
     depends_on:
       - loadbalancer
 
+  dataformatter:
+    image: ${DOCKER_REGISTRY-}dataformatter
+    build:
+      context: .
+      dockerfile: DataFormater/Dockerfile
+    ports:
+      - 9001:80
 
-    #environment:
-    #  - ASPNETCORE_URLS=http://+:80;https://+:443
-    #volumes:
-    #  - ${APPDATA}/ASP.NET/Https:/https:ro
-    #ports:
-    #  - target: 80
-    #    published: 8000
-    #    mode: host
-    #  - target: 443
-    #    published: 8001
-    #    mode: host
-
-
-# Specify https port for the loadbalancer
-# Make the Website and console app call that lodbalancer url
-# Make the SearchAPI properly regeister in the loadbalancer
