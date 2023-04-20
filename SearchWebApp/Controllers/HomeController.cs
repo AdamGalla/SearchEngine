@@ -7,10 +7,9 @@ namespace SearchWebApp.Controllers;
 
 public class HomeController : Controller
 {
-
     private readonly ILogger<HomeController> _logger;
-    private readonly ApiClient _apiClient;
-    public HomeController(ILogger<HomeController> logger, ApiClient apiClient)
+    private readonly IApiClient _apiClient;
+    public HomeController(ILogger<HomeController> logger, IApiClient apiClient)
     {
         _logger = logger;
         _apiClient = apiClient;

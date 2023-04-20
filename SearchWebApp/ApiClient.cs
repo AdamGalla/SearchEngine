@@ -6,10 +6,10 @@ using Common.Shared;
 
 namespace SearchWebApp;
 
-public class ApiClient
+public class ApiClient : IApiClient
 {
     public SearchWordDTO _searchResult;
-
+    
     public SearchWord GetSearchData(string input)
     {
         var client = new RestClient("http://localhost:9000/LoadBalancer");
@@ -31,7 +31,7 @@ public class ApiClient
         return response.Data;
     }
 
-    public SearchWord GetFormattedData(string formatType)
+    public string GetFormattedData(string formatType)
     {
         var client = new RestClient("http://localhost:9001/api/Format/");
         var request = new RestRequest("{strategy}", Method.Get);
@@ -39,7 +39,7 @@ public class ApiClient
         request.AddHeader("Content-Type", "application/json");
         request.AddHeader("Accept", "application/json");
         request.AddJsonBody(_searchResult);
-        var response = client.Execute<SearchWord>(request);
+        var response = client.Execute<string>(request);
         return response.Data;
     }
 }
