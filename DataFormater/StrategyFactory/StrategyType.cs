@@ -1,6 +1,9 @@
 ﻿namespace DataFormatter.StrategyFactory
 {
-    public class StrategyType
+    public enum StrategyType
     {
+        ExcelFormatter,
+        JSONFormatter
+        
     }
 }

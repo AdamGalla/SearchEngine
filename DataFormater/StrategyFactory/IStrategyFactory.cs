@@ -2,5 +2,8 @@
 {
     public interface IStrategyFactory
     {
+        void StrategyType ();
+
+        
     }
 }
