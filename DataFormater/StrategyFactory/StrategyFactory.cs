@@ -1,26 +1,17 @@
 ﻿using DataFormatter.FormatterLogic.Strategies;
 
-namespace DataFormatter.StrategyFactory
+namespace DataFormatter.StrategyFactory;
+
+public class StrategyFactory : IStrategyFactory
 {
-    public class StrategyFactory : IStrategyFactory
+    public IFormatterStrategy GetStrategyType(StrategyType strategyType)
     {
-        IFormatterStrategy IStrategyFactory.StrategyType(StrategyType strategyType)
+        return strategyType switch
         {
-
-            switch (strategyType)
-            {
-                case StrategyType.JSONFormatter:
-                    return new JSONFormatterStrategy();
-
-                case StrategyType.ExcelFormatter:
-                    return new ExcelFormatterStrategy();
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(strategyType), strategyType, null);
-            }
-
-        }
-
+            StrategyType.JSONFormatter => new JSONFormatterStrategy(),
+            StrategyType.ExcelFormatter => new ExcelFormatterStrategy(),
+            _ => throw new ArgumentOutOfRangeException(nameof(strategyType), strategyType, null),
+        };
     }
 }
 

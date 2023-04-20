@@ -1,11 +1,7 @@
 ﻿using DataFormatter.FormatterLogic.Strategies;
 
-namespace DataFormatter.StrategyFactory
+namespace DataFormatter.StrategyFactory;
+public interface IStrategyFactory
 {
-    public interface IStrategyFactory
-    {
-        public IFormatterStrategy StrategyType (StrategyType strategyType);
-
-        
-    }
+    IFormatterStrategy GetStrategyType(StrategyType strategyType);
 }
