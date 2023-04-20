@@ -1,7 +1,27 @@
-﻿@{
+﻿@using System.Xml;
+@{
     ViewData["Title"] = "Home Page";
 }
+
 @model Common.Shared.SearchWord;
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid black;
+    }
+
+    tr:nth-child(even) {
+        background-color: lightblue;
+    }
+</style>
+
 <div class="text-center">
     <h1 class="display-4">WebSearch</h1>
     <p>Please write a words you want to search for</p>
@@ -25,13 +45,40 @@
             }
             </ul>
         <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
-            <input type="text" name="FormatType" placeholder="Select a format"/>
+            <input id="formatdata" type="text" name="FormatType" placeholder="Select a format"/>
             <button type="submit">Format the data</button>
         </form>
     }
-    @if (!string.IsNullOrEmpty(ViewBag.FormattedData))
+    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType != "ExcelFormatter")
     {
         <h2>Formatted Data:</h2>
         <p>@ViewBag.FormattedData</p>
     }
+    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType == "ExcelFormatter")
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Search word</th>
+                    <th>Document number</th>
+                    <th>Document</th>
+                    <th>Search terms</th>
+                    <th>Time used</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in ViewBag.FormattedData.Descendants("row"))
+                {
+                    <tr>
+                        <td>@(row.Attribute("column1")?.Value)</td>
+                        <td>@(row.Attribute("column2")?.Value)</td>
+                        <td>@(row.Attribute("column3")?.Value)</td>
+                        <td>@(row.Attribute("column4")?.Value)</td>
+                        <td>@(row.Attribute("column5")?.Value)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
 </div>

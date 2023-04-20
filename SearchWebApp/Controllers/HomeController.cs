@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SearchWebApp.Models;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace SearchWebApp.Controllers;
 
@@ -31,8 +32,11 @@ public class HomeController : Controller
     public async Task<ActionResult> FormatData(string formatType)
     {
 
-        var formatResult = await _apiClient.GetFormattedData(formatType);
-        ViewBag.FormattedData = formatResult;
+        var formatResult = _apiClient.GetFormattedData(formatType);
+        string xmlString = formatResult;
+        XDocument xmlDoc = XDocument.Parse(xmlString);
+        ViewBag.FormattedData = xmlDoc;
+        ViewBag.FormatType = formatType;
         return View("Index");
     }
 
