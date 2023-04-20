@@ -1,17 +1,26 @@
-﻿namespace DataFormatter.StrategyFactory
-{
-    public class StrategyFactory 
-    {
-      public IStrategyFactory GetStrategyType(StrategyType strategyType)
-        {
-            if(strategyType == StrategyType.JSONFormatter)
-            {
-                return 
-            }
-            if(strategyType == StrategyType.ExcelFormatter)
-            {
+﻿using DataFormatter.FormatterLogic.Strategies;
 
+namespace DataFormatter.StrategyFactory
+{
+    public class StrategyFactory : IStrategyFactory
+    {
+        IFormatterStrategy IStrategyFactory.StrategyType(StrategyType strategyType)
+        {
+
+            switch (strategyType)
+            {
+                case StrategyType.JSONFormatter:
+                    return new JSONFormatterStrategy();
+
+                case StrategyType.ExcelFormatter:
+                    return new ExcelFormatterStrategy();
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(strategyType), strategyType, null);
             }
+
         }
+
     }
 }
+

@@ -1,8 +1,10 @@
-﻿namespace DataFormatter.StrategyFactory
+﻿using DataFormatter.FormatterLogic.Strategies;
+
+namespace DataFormatter.StrategyFactory
 {
     public interface IStrategyFactory
     {
-        void StrategyType ();
+        public IFormatterStrategy StrategyType (StrategyType strategyType);
 
         
     }
