@@ -32,8 +32,8 @@ public class HomeController : Controller
     {
 
         var formatResult = _apiClient.GetFormattedData(formatType);
-        ViewBag.prevInput = formatType;
-        return View("Index", formatResult);
+        ViewBag.FormattedData = formatResult;
+        return View("Index");
     }
 
     public IActionResult Privacy()

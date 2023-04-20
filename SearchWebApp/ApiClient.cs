@@ -33,7 +33,7 @@ public class ApiClient : IApiClient
 
     public string GetFormattedData(string formatType)
     {
-        var client = new RestClient("http://localhost:9001/api/Format/");
+        var client = new RestClient("http://localhost:9001/api/Formatter/");
         var request = new RestRequest("{strategy}", Method.Get);
         request.AddParameter("strategy", formatType, ParameterType.UrlSegment);
         request.AddHeader("Content-Type", "application/json");

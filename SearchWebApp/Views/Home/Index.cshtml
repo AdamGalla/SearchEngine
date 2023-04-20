@@ -29,6 +29,9 @@
             <button type="submit">Format the data</button>
         </form>
     }
-
-
+    @if (!string.IsNullOrEmpty(ViewBag.FormattedData))
+    {
+        <h2>Formatted Data:</h2>
+        <p>@ViewBag.FormattedData</p>
+    }
 </div>
