@@ -1,3 +1,4 @@
+using Common;
 using DataFormatter.StrategyFactory;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseMiddleware<TracingMiddleware>();
 
 app.MapControllers();
 
