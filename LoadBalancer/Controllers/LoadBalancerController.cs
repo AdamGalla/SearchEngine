@@ -10,12 +10,10 @@ namespace LoadBalancer.Controllers;
 public class LoadBalancerController : ControllerBase
 {
     private readonly ILoadBalancer _loadBalancer;
-    private readonly ILogger<LoadBalancerController> _logger;
 
-    public LoadBalancerController(ILoadBalancer loadBalancer, ILogger<LoadBalancerController> logger)
+    public LoadBalancerController(ILoadBalancer loadBalancer)
     {
         _loadBalancer = loadBalancer;
-        _logger = logger;
     }
 
     [HttpGet("search/{input}")]
@@ -74,11 +72,9 @@ public class LoadBalancerController : ControllerBase
     public IActionResult RegisterService([FromBody] dynamic Url)
     {
         string url = Url.GetProperty("Url").GetString();
-        //string url = Request.Host.ToUriComponent().ToString();
         Console.WriteLine($"Adding Service to pool {url} | {url}");
-        //_logger.LogInformation("Adding Service to pool {ServiceName} | {ServiceURI}", Url, Url);
+
         int returnedId = _loadBalancer.AddService(new Service() { Name = url, Uri = url });
-        //_logger.LogInformation("Registered Service Id: {Id}", returnedId);
         Console.WriteLine($"Registered Service Id: {returnedId}");
         return Ok();
     }

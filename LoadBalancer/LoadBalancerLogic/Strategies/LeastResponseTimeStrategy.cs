@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace LoadBalancer.LoadBalancerLogic.Strategies;
+﻿namespace LoadBalancer.LoadBalancerLogic.Strategies;
 
 public class LeastResponseTimeStrategy : ILoadBalancerStrategy
 {

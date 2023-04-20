@@ -2,26 +2,21 @@
 
 public class RoundRobbinStrategy : ILoadBalancerStrategy
 {
-    private int currentService = 0;
+    private int _currentService = 0;
 
     public Service NextService(List<Service> services)
     {
-        if (currentService >= 0 && currentService < services.Count) 
+        if (services.Count > 0 && _currentService < services.Count) 
         {
-            Service selectedService = services[currentService];
+            Service selectedService = services[_currentService];
 
-            currentService++;
-            if (currentService >= services.Count)
+            _currentService++;
+            if (_currentService >= services.Count)
             {
-                currentService = 0;
+                _currentService = 0;
             }
-
             return selectedService;
-        } 
-        else 
-        { 
-            return new Service();
         }
-        
+        throw new IndexOutOfRangeException("No services are registered in the load balancer!");
     }
 }

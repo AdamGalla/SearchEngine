@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace LoadBalancer.LoadBalancerLogic;
+﻿namespace LoadBalancer.LoadBalancerLogic;
 
 public record Service
 {
