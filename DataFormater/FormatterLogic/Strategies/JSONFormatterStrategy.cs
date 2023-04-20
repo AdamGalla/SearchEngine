@@ -1,5 +1,12 @@
-﻿namespace DataFormatter.FormatterLogic.Strategies;
+﻿using DataFormatter.FormatterLogic.Model;
+using Newtonsoft.Json;
 
-public class JSONFormatterStrategy
+namespace DataFormatter.FormatterLogic.Strategies;
+
+public class JSONFormatterStrategy : IFormatterStrategy
 {
+    public string FormatText(FileData data)
+    {
+        return JsonConvert.SerializeObject(data);
+    }
 }
