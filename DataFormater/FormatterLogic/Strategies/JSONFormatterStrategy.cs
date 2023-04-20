@@ -7,6 +7,10 @@ public class JSONFormatterStrategy : IFormatterStrategy
 {
     public string FormatText(FileData data)
     {
+        if(data == null)
+        {
+            return String.Empty;
+        }
         return JsonConvert.SerializeObject(data);
     }
 }
