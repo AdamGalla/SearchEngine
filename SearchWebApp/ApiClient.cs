@@ -3,6 +3,7 @@ using System.Net;
 using SearchWebApp.Models;
 using RestSharp;
 using Common.Shared;
+using Common;
 
 namespace SearchWebApp;
 
@@ -10,14 +11,14 @@ public class ApiClient : IApiClient
 {
     public SearchWordDTO _searchResult;
     
-    public SearchWord GetSearchData(string input)
+    public async Task<SearchWord> GetSearchData(string input)
     {
         var client = new RestClient("http://localhost:9000/LoadBalancer");
         var request = new RestRequest("search/{input}", Method.Get);
         request.AddParameter("input", input, ParameterType.UrlSegment);
         request.AddHeader("Content-Type", "application/json");
         request.AddHeader("Accept", "application/json");
-        var response = client.Execute<SearchWord>(request);
+        var response = await client.ExecuteWithTracingAsync<SearchWord>(request);
 
         _searchResult = new SearchWordDTO() 
         { 
@@ -31,7 +32,7 @@ public class ApiClient : IApiClient
         return response.Data;
     }
 
-    public string GetFormattedData(string formatType)
+    public async Task<string> GetFormattedData(string formatType)
     {
         var client = new RestClient("http://localhost:9001/api/Formatter/");
         var request = new RestRequest("{strategy}", Method.Get);
@@ -39,7 +40,7 @@ public class ApiClient : IApiClient
         request.AddHeader("Content-Type", "application/json");
         request.AddHeader("Accept", "application/json");
         request.AddJsonBody(_searchResult);
-        var response = client.Execute<string>(request);
+        var response = await client.ExecuteWithTracingAsync<string>(request);
         return response.Data;
     }
 }

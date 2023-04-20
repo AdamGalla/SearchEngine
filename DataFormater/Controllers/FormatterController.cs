@@ -1,4 +1,5 @@
-﻿using DataFormatter.FormatterLogic.Model;
+﻿using Common;
+using DataFormatter.FormatterLogic.Model;
 using DataFormatter.StrategyFactory;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,6 +20,8 @@ public class FormatterController : ControllerBase
     [HttpGet("{strategy}")]
     public async Task<ActionResult<string>> GetAsync([FromBody] FileData data, string strategy)
     {
+        //using var activity = Monitoring.ActivitySource.StartActivity(); handled by middleware
+
         if (data is null)
         {
             return BadRequest("Data can not be null!");

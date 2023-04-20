@@ -1,4 +1,5 @@
-﻿using DataFormatter.FormatterLogic.Model;
+﻿using Common;
+using DataFormatter.FormatterLogic.Model;
 using Newtonsoft.Json;
 
 namespace DataFormatter.FormatterLogic.Strategies;
@@ -7,7 +8,9 @@ public class JSONFormatterStrategy : IFormatterStrategy
 {
     public async Task<string> FormatTextAsync(FileData data)
     {
-        if(data == null)
+        using var activity = Monitoring.ActivitySource.StartActivity();
+
+        if (data == null)
         {
             return String.Empty;
         }

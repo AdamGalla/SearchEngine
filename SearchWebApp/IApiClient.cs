@@ -4,7 +4,7 @@ namespace SearchWebApp
 {
     public interface IApiClient
     {
-        public SearchWord GetSearchData(string input);
-        public string GetFormattedData(string formatType);
+        public Task<SearchWord> GetSearchData(string input);
+        public Task<string> GetFormattedData(string formatType);
     }
 }

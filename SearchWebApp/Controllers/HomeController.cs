@@ -21,17 +21,17 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public ActionResult Search(string input)
+    public async Task<ActionResult> Search(string input)
     {
-        var searchWord = _apiClient.GetSearchData(input);
+        var searchWord = await _apiClient.GetSearchData(input);
         ViewBag.prevInput = input;
         return View("Index", searchWord);
     }
     [HttpGet]
-    public ActionResult FormatData(string formatType)
+    public async Task<ActionResult> FormatData(string formatType)
     {
 
-        var formatResult = _apiClient.GetFormattedData(formatType);
+        var formatResult = await _apiClient.GetFormattedData(formatType);
         ViewBag.FormattedData = formatResult;
         return View("Index");
     }

@@ -1,4 +1,5 @@
-﻿using DataFormatter.FormatterLogic.Model;
+﻿using Common;
+using DataFormatter.FormatterLogic.Model;
 using System.Xml;
 
 namespace DataFormatter.FormatterLogic.Strategies;
@@ -7,6 +8,8 @@ public class ExcelFormatterStrategy : IFormatterStrategy
 {
     public async Task<string> FormatTextAsync(FileData data)
     {
+        using var activity = Monitoring.ActivitySource.StartActivity();
+
         // Create a new XML document asynchronously
         XmlDocument xmlDocument = await Task.Run(() =>
         {
