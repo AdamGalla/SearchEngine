@@ -20,6 +20,18 @@
     tr:nth-child(even) {
         background-color: lightblue;
     }
+
+    submit-button{
+        margin-left:5px;
+    }
+
+    exform{
+        margin-left:5px;
+    }
+
+    dowload{
+        margin-top: 5px;
+    }
 </style>
 
 <div class="text-center">
@@ -45,16 +57,22 @@
             }
             </ul>
         <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
-            <input id="formatdata" type="text" name="FormatType" placeholder="Select a format"/>
-            <button type="submit">Format the data</button>
+            <label>
+                <input type="radio" name="FormatType" value="JSONFormatter" checked>JSONFormatter
+            </label>
+            <label>
+                <input id="exform" type="radio" name="FormatType" value="XMLFormatter">XMLFormatter
+            </label>
+            <button id="submit-button" type="submit">Format the data</button>
         </form>
-    }
-    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType != "ExcelFormatter")
+    }     
+    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType != "XMLFormatter")
     {
         <h2>Formatted Data:</h2>
         <p>@ViewBag.FormattedData</p>
+        <a id="dowload" href="@Url.Action("DownloadDocument", "Home")">Download the JSON file</a>
     }
-    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType == "ExcelFormatter")
+    @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType == "XMLFormatter")
     {
         <table>
             <thead>
@@ -79,6 +97,7 @@
                 }
             </tbody>
         </table>
+        <a id="dowload" href="@Url.Action("DownloadDocument", "Home")">Download the XML file</a>
     }
     
 </div>

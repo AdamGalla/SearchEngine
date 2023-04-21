@@ -11,7 +11,7 @@ public class StrategyFactory : IStrategyFactory
         return strategyType switch
         {
             StrategyType.JSONFormatter => new JSONFormatterStrategy(),
-            StrategyType.ExcelFormatter => new ExcelFormatterStrategy(),
+            StrategyType.XMLFormatter => new XMLFormatterStrategy(),
             _ => throw new ArgumentOutOfRangeException(nameof(strategyType), strategyType, null),
         };
     }

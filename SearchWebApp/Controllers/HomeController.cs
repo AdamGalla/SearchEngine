@@ -1,5 +1,4 @@
-﻿using Common.Shared;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SearchWebApp.Models;
 using System.Diagnostics;
 using System.Xml.Linq;
@@ -10,6 +9,9 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IApiClient _apiClient;
+    public static string? _formattedData;
+    public static string? _formatType;
+
     public HomeController(ILogger<HomeController> logger, IApiClient apiClient)
     {
         _logger = logger;
@@ -31,13 +33,42 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<ActionResult> FormatData(string formatType)
     {
-
-        var formatResult = _apiClient.GetFormattedData(formatType);
-        string xmlString = formatResult;
-        XDocument xmlDoc = XDocument.Parse(xmlString);
-        ViewBag.FormattedData = xmlDoc;
+        var formatResult = await _apiClient.GetFormattedData(formatType);
+        if(formatType == "XMLFormatter")
+        {
+            string xmlString = formatResult.ToString();
+            XDocument xmlDoc = XDocument.Parse(xmlString);
+            ViewBag.FormattedData = xmlDoc;
+            _formattedData = xmlString;
+        }
+        else
+        {
+            ViewBag.FormattedData = formatResult;
+            _formattedData = formatResult;
+        }
         ViewBag.FormatType = formatType;
+        _formatType = formatType;
         return View("Index");
+    }
+
+    public IActionResult DownloadDocument()
+    {
+        // Retrieve the JSON data from the ViewBag
+        var jsonData = _formattedData;
+        var contentType = "application/json";
+        var fileName = "data.json";
+
+        if (_formatType == "XMLFormatter")
+        {
+            contentType = "text/xml";
+            fileName = "data.xml";
+        }
+
+        Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
+        Response.ContentType = contentType;
+        
+        // Write the JSON data to the response body
+        return Content(jsonData, contentType);
     }
 
     public IActionResult Privacy()

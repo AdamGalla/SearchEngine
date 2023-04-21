@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace DataFormatter.FormatterLogic.Strategies;
 
-public class ExcelFormatterStrategy : IFormatterStrategy    
+public class XMLFormatterStrategy : IFormatterStrategy    
 {
     public async Task<string> FormatTextAsync(FileData data)
     {

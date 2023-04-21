@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="RestSharp" Version="109.0.0-preview.2" />
