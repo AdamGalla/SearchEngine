@@ -13,7 +13,7 @@ RUN dotnet build "TestDataFormatter.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "TestDataFormatter.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM build AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "test", "TestDataFormatter.dll"]
