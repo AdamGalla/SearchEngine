@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    trigger {
+    triggers {
         pollSCM("* * * * *")
     }
-    stages{
+    stages {
         stage("Build") {
             steps {
                 sh "docker compose build"
