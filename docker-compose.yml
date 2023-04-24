@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   loadbalancer:
-    image: ${DOCKER_REGISTRY-}loadbalancer
+    image: adm14/loadbalancer:$BUILD_NUMBER
     build:
       context: .
       dockerfile: LoadBalancer/Dockerfile
@@ -10,7 +10,7 @@ services:
       - 9000:80
 
   searchapi:
-    image: ${DOCKER_REGISTRY-}searchapi
+    image: adm14/searchapi:$BUILD_NUMBER
     build:
       context: .
       dockerfile: SearchAPI/Dockerfile
@@ -22,7 +22,7 @@ services:
       - loadbalancer
 
   dataformatter:
-    image: ${DOCKER_REGISTRY-}dataformatter
+    image: adm14/dataformatter:$BUILD_NUMBER
     build:
       context: .
       dockerfile: DataFormater/Dockerfile
