@@ -35,7 +35,6 @@ services:
       - 9411:9411
 
   testdataformatter:
-    image: ${DOCKER_REGISTRY-}testdataformatter
     build:
       context: .
       dockerfile: TestDataFormatter/Dockerfile
