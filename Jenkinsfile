@@ -11,7 +11,7 @@ pipeline {
         }
         stage("Test") {
             steps {
-                bat "docker compose up test"
+                bat "docker compose up testdataformatter"
             }
         }
         stage("Deliver") {
