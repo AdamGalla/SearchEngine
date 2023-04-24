@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TestDataFormatter": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
