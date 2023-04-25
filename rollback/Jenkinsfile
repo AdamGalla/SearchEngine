@@ -8,10 +8,10 @@ pipeline {
     stages {
         stage('Rollback') {
             steps {
-                sh "docker-compose -f docker-compose.yml pull loadbalancer:%VERSION%"
-                sh "docker-compose -f docker-compose.yml pull searchapi:%VERSION%"
-                sh "docker-compose -f docker-compose.yml pull dataformatter:%VERSION%"
-                sh "docker-compose -f docker-compose.yml up -d"
+                bat "docker-compose -f docker-compose.yml pull loadbalancer:%VERSION%"
+                bat "docker-compose -f docker-compose.yml pull searchapi:%VERSION%"
+                bat "docker-compose -f docker-compose.yml pull dataformatter:%VERSION%"
+                bat "docker-compose -f docker-compose.yml up -d"
             }
         }
     }
