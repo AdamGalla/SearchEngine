@@ -21,6 +21,8 @@ public class FormatterController : ControllerBase
     public async Task<ActionResult<string>> GetAsync([FromBody] FileData data, string strategy)
     {
         //using var activity = Monitoring.ActivitySource.StartActivity(); handled by middleware
+        using var activity = Monitoring.ActivitySource.StartActivity();
+        Console.WriteLine(Monitoring.ActivitySource.HasListeners());
 
         if (data is null)
         {
