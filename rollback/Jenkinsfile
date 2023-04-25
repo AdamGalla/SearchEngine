@@ -8,10 +8,14 @@ pipeline {
     stages {
         stage('Rollback') {
             steps {
-                bat "docker-compose -f docker-compose.yml pull adm14/loadbalancer:%VERSION%"
-                bat "docker-compose -f docker-compose.yml pull adm14/searchapi:%VERSION%"
-                bat "docker-compose -f docker-compose.yml pull adm14/dataformatter:%VERSION%"
-                bat "docker-compose -f docker-compose.yml up -d"
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    bat 'docker login -u %USERNAME% -p %PASSWORD%'
+                    bat "docker-compose -f docker-compose.yml pull adm14/loadbalancer:%VERSION%"
+                    bat "docker-compose -f docker-compose.yml pull adm14/searchapi:%VERSION%"
+                    bat "docker-compose -f docker-compose.yml pull adm14/dataformatter:%VERSION%"
+                    bat "docker-compose -f docker-compose.yml up -d"
+                }
+               
             }
         }
     }
