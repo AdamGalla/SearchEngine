@@ -9,7 +9,10 @@ pipeline {
         stage('Rollback') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat 'docker-compose down --rmi all'
+                    bat 'docker images --filter=reference="adm14/loadbalancer" --format "{{.ID}}" | ForEach-Object { docker rmi -f $_ }'
+                    bat 'docker images --filter=reference="adm14/searchapi" --format "{{.ID}}" | ForEach-Object { docker rmi -f $_ }'
+                    bat 'docker images --filter=reference="adm14/dataformatter" --format "{{.ID}}" | ForEach-Object { docker rmi -f $_ }'
+                    bat 'docker images --filter "dangling=true" --format "{{.ID}}" | ForEach-Object { docker rmi -f $_ }'
                     bat 'docker login -u %USERNAME% -p %PASSWORD%'
                     bat "docker pull adm14/loadbalancer:%VERSION%"
                     bat "docker pull adm14/searchapi:%VERSION%"
