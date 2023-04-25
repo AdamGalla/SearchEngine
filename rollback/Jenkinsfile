@@ -9,15 +9,15 @@ pipeline {
         stage('Rollback') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/loadbalancer" --format "{{.ID}}"') do docker rmi -f %i'
-                    bat 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/searchapi" --format "{{.ID}}"') do docker rmi -f %i'
-                    bat 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/dataformatter" --format "{{.ID}}"') do docker rmi -f %i'
-                    bat 'for /f "tokens=*" %i in ('docker images --filter "dangling=true" --format "{{.ID}}"') do docker rmi -f %i'
-                    bat 'docker login -u %USERNAME% -p %PASSWORD%'
-                    bat "docker pull adm14/loadbalancer:%VERSION%"
-                    bat "docker pull adm14/searchapi:%VERSION%"
-                    bat "docker pull adm14/dataformatter:%VERSION%"
-                    bat "docker-compose up -d"
+                    sh 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/loadbalancer" --format "{{.ID}}"') do docker rmi -f %i'
+                    sh 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/searchapi" --format "{{.ID}}"') do docker rmi -f %i'
+                    sh 'for /f "tokens=*" %i in ('docker images --filter "reference=adm14/dataformatter" --format "{{.ID}}"') do docker rmi -f %i'
+                    sh 'for /f "tokens=*" %i in ('docker images --filter "dangling=true" --format "{{.ID}}"') do docker rmi -f %i'
+                    sh 'docker login -u %USERNAME% -p %PASSWORD%'
+                    sh "docker pull adm14/loadbalancer:%VERSION%"
+                    sh "docker pull adm14/searchapi:%VERSION%"
+                    sh "docker pull adm14/dataformatter:%VERSION%"
+                    sh "docker-compose up -d"
                 }
                
             }
