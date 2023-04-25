@@ -1,0 +1,18 @@
+pipeline {
+    parameters {
+        string(name: 'VERSION', defaultValue: '', description: 'Version of the application')
+    }
+
+    agent any
+
+    stages {
+        stage('Rollback') {
+            steps {
+                sh "docker-compose -f docker-compose.yml pull loadbalancer:%VERSION%"
+                sh "docker-compose -f docker-compose.yml pull searchapi:%VERSION%"
+                sh "docker-compose -f docker-compose.yml pull dataformatter:%VERSION%"
+                sh "docker-compose -f docker-compose.yml up -d"
+            }
+        }
+    }
+}
