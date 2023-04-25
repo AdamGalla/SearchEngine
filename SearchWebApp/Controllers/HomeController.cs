@@ -3,23 +3,33 @@ using SearchWebApp.Models;
 using System.Diagnostics;
 using System.Xml.Linq;
 
+using Common;
+using FeatureHubSDK;
+
 namespace SearchWebApp.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IApiClient _apiClient;
+    private readonly IFeatureHubConfig _featureHubConfig;
+
     public static string? _formattedData;
     public static string? _formatType;
+    public IClientContext _featureHubContext;
 
-    public HomeController(ILogger<HomeController> logger, IApiClient apiClient)
+    public HomeController(ILogger<HomeController> logger, IApiClient apiClient, IFeatureHubConfig featureHubConfig, IClientContext featureHubContext)
     {
         _logger = logger;
         _apiClient = apiClient;
+        _featureHubConfig = featureHubConfig;
+        _featureHubContext = featureHubContext;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        var featureValue = _featureHubContext["dataformatter"];
+        ViewBag.FeatureValue = featureValue.Value;
         return View();
     }
 
@@ -27,6 +37,8 @@ public class HomeController : Controller
     public async Task<ActionResult> Search(string input)
     {
         var searchWord = await _apiClient.GetSearchData(input);
+        var featureValue = _featureHubContext["dataformatter"];
+        ViewBag.FeatureValue = featureValue.Value;
         ViewBag.prevInput = input;
         return View("Index", searchWord);
     }

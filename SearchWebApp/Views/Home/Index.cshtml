@@ -56,16 +56,24 @@
                 idx++;
             }
             </ul>
-        <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
-            <label>
-                <input type="radio" name="FormatType" value="JSONFormatter" checked>JSONFormatter
-            </label>
-            <label>
-                <input id="exform" type="radio" name="FormatType" value="XMLFormatter">XMLFormatter
-            </label>
-            <button id="submit-button" type="submit">Format the data</button>
-        </form>
+        
+            
+            @if(ViewBag.FeatureValue == true)
+            {
+            <form id="format-form" action="@Url.Action("FormatData", "Home")" method="get">
+                <label>
+                    <input type="radio" name="FormatType" value="JSONFormatter" checked>JSONFormatter
+                </label>
+                <label>
+                    <input id="exform" type="radio" name="FormatType" value="XMLFormatter">XMLFormatter
+                </label>
+                <button id="submit-button" type="submit">Format the data</button>
+            </form>
+            }
+
+        
     }     
+
     @if (!string.IsNullOrEmpty(ViewBag.FormattedData?.ToString()) && ViewBag.FormatType != "XMLFormatter")
     {
         <h2>Formatted Data:</h2>
