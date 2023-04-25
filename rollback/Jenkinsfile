@@ -9,7 +9,7 @@ pipeline {
         stage('Rollback') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat 'docker-compose down --rmi all --exclude=datalust/seq,openzipkin/zipkin'
+                    bat 'docker-compose down --rmi all'
                     bat 'docker login -u %USERNAME% -p %PASSWORD%'
                     bat "docker pull adm14/loadbalancer:%VERSION%"
                     bat "docker pull adm14/searchapi:%VERSION%"
