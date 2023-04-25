@@ -8,6 +8,9 @@ services:
       dockerfile: LoadBalancer/Dockerfile
     ports:
       - 9000:80
+    depends_on:
+      - seq
+      - zipkin
 
   searchapi:
     image: adm14/searchapi:$BUILD_NUMBER
@@ -20,6 +23,8 @@ services:
         replicas: 2
     depends_on:
       - loadbalancer
+      - seq
+      - zipkin
 
   dataformatter:
     image: adm14/dataformatter:$BUILD_NUMBER
@@ -28,6 +33,9 @@ services:
       dockerfile: DataFormater/Dockerfile
     ports:
       - 9001:80
+    depends_on:
+      - seq
+      - zipkin
 
   zipkin:
     image: openzipkin/zipkin
@@ -39,3 +47,10 @@ services:
       context: .
       dockerfile: TestDataFormatter/Dockerfile
 
+  seq:
+    image: datalust/seq
+    ports:
+      - 5341:5341
+      - 5342:80
+    environment:
+      - ACCEPT_EULA=Ycd
