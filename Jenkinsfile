@@ -22,5 +22,11 @@ pipeline {
                 }
             }
         }
+        stage("Deploy") {
+            steps {
+                bat "docker compose rm"
+                bat "docker compose up -d"
+            }
+        }
     }
 }
