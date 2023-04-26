@@ -9,12 +9,12 @@ pipeline {
         stage('Rollback') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat "docker compose rm -i"
+                    bat "docker-compose down --rmi all"
                     bat 'docker login -u %USERNAME% -p %PASSWORD%'
                     bat "docker pull adm14/loadbalancer:%VERSION%"
                     bat "docker pull adm14/searchapi:%VERSION%"
                     bat "docker pull adm14/dataformatter:%VERSION%"
-                    bat "docker-compose up -d"
+                    bat "set BUILD_NUMBER=%VERSION%&& docker-compose up --build -d"
                 }
                
             }
