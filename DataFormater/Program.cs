@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-app.UseMiddleware<TracingMiddleware>();
+//app.UseMiddleware<TracingMiddleware>();
 
 app.MapControllers();
 

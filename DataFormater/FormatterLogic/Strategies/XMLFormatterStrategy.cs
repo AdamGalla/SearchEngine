@@ -1,10 +1,11 @@
 ﻿using Common;
 using DataFormatter.FormatterLogic.Model;
+using System.Diagnostics.Tracing;
 using System.Xml;
 
 namespace DataFormatter.FormatterLogic.Strategies;
 
-public class XMLFormatterStrategy : IFormatterStrategy    
+public class XMLFormatterStrategy : EventSource, IFormatterStrategy    
 {
     public async Task<string> FormatTextAsync(FileData data)
     {

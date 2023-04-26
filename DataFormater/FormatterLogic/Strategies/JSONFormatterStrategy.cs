@@ -1,10 +1,11 @@
 ﻿using Common;
 using DataFormatter.FormatterLogic.Model;
 using Newtonsoft.Json;
+using System.Diagnostics.Tracing;
 
 namespace DataFormatter.FormatterLogic.Strategies;
 
-public class JSONFormatterStrategy : IFormatterStrategy
+public class JSONFormatterStrategy : EventSource, IFormatterStrategy
 {
     public async Task<string> FormatTextAsync(FileData data)
     {

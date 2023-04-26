@@ -3,6 +3,7 @@ using DataFormatter.FormatterLogic.Model;
 using DataFormatter.StrategyFactory;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics.Tracing;
 
 namespace DataFormater.Controllers;
 
@@ -22,7 +23,7 @@ public class FormatterController : ControllerBase
     {
         //using var activity = Monitoring.ActivitySource.StartActivity(); handled by middleware
         using var activity = Monitoring.ActivitySource.StartActivity();
-        Console.WriteLine(Monitoring.ActivitySource.HasListeners());
+        //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
 
         if (data is null)
         {
@@ -35,6 +36,9 @@ public class FormatterController : ControllerBase
         }
 
         string result = await _strategyFactory.GetStrategyType(strategyType).FormatTextAsync(data);
+
+        await Task.Delay(1000);
+
         return Ok(result);
     }
 }

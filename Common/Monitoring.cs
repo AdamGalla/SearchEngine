@@ -1,6 +1,7 @@
 ﻿using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -8,7 +9,7 @@ namespace Common;
 public static class Monitoring
 {
     public static readonly ActivitySource ActivitySource = new("SearchAPI_" + Assembly.GetEntryAssembly()?.GetName().Name, "1.0.0");
-    private static TracerProvider _tracerProvider;
+    private static TracerProvider TracerProvider;
 
     static Monitoring()
     {
@@ -16,9 +17,9 @@ public static class Monitoring
         var serviceName = Assembly.GetExecutingAssembly().GetName().Name;
         var version = "1.0.0";
 
-        _tracerProvider = Sdk.CreateTracerProviderBuilder()
-            .AddZipkinExporter()
+        TracerProvider = Sdk.CreateTracerProviderBuilder()
             .AddConsoleExporter()
+            .AddZipkinExporter()
             .AddSource(ActivitySource.Name)
             .SetSampler(new AlwaysOnSampler())
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: serviceName, serviceVersion: version))

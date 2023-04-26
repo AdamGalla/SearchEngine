@@ -1,9 +1,10 @@
 ﻿using Common;
 using DataFormatter.FormatterLogic.Strategies;
+using System.Diagnostics.Tracing;
 
 namespace DataFormatter.StrategyFactory;
 
-public class StrategyFactory : IStrategyFactory
+public class StrategyFactory : EventSource, IStrategyFactory
 {
     public IFormatterStrategy GetStrategyType(StrategyType strategyType)
     {
