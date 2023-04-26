@@ -1,6 +1,7 @@
 ﻿using Common;
 using DataFormatter.FormatterLogic.Model;
 using DataFormatter.StrategyFactory;
+using FeatureHubSDK;
 using Microsoft.AspNetCore.Mvc;
 using OpenTelemetry.Context.Propagation;
 using System;
@@ -15,10 +16,12 @@ public class FormatterController : ControllerBase
 {
     private IStrategyFactory _strategyFactory;
     private static readonly TextMapPropagator Propagator = new TraceContextPropagator();
+    public IClientContext _featureHubContext;
 
-    public FormatterController(IStrategyFactory strategyFactory)
+    public FormatterController(IStrategyFactory strategyFactory, IClientContext featureHubContext)
     {
         _strategyFactory = strategyFactory;
+        _featureHubContext = featureHubContext;
     }
 
     // GET api/<Formatter>/{strategy}
@@ -28,30 +31,39 @@ public class FormatterController : ControllerBase
         //using var activity = Monitoring.ActivitySource.StartActivity(); handled by middleware
         //using var activity = Monitoring.ActivitySource.StartActivity();
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
-        var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
+        var featureValue = _featureHubContext["dataformatter"];
+        if(featureValue.IsEnabled || featureValue == null) 
         {
-            if (headers.TryGetValue(name, out var value))
+            var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
             {
-                return new[] { value.ToString() };
+                if (headers.TryGetValue(name, out var value))
+                {
+                    return new[] { value.ToString() };
+                }
+
+                return Enumerable.Empty<string>();
+            });
+
+            using var activity = Monitoring.ActivitySource.StartActivity("Received HTTP request", ActivityKind.Consumer, parentContext.ActivityContext);
+
+            if (data is null)
+            {
+                return BadRequest("Data can not be null!");
             }
 
-            return Enumerable.Empty<string>();
-        });
+            if (!Enum.TryParse<StrategyType>(strategy, out var strategyType))
+            {
+                return BadRequest($"Unknown strategy type {strategy}! Possible values are: {Enum.GetNames(typeof(StrategyType)).Select(s => s.ToString()).ToList()}");
+            }
 
-        using var activity = Monitoring.ActivitySource.StartActivity("Received HTTP request", ActivityKind.Consumer, parentContext.ActivityContext);
+            string result = await _strategyFactory.GetStrategyType(strategyType).FormatTextAsync(data);
 
-        if (data is null)
+            return Ok(result);
+
+        }else
         {
-            return BadRequest("Data can not be null!");
+            return BadRequest("This feature is not enabled!");
         }
-
-        if (!Enum.TryParse<StrategyType>(strategy, out var strategyType))
-        {
-            return BadRequest($"Unknown strategy type {strategy}! Possible values are: {Enum.GetNames(typeof(StrategyType)).Select(s => s.ToString()).ToList()}");
-        }
-
-        string result = await _strategyFactory.GetStrategyType(strategyType).FormatTextAsync(data);
-
-        return Ok(result);
+        
     }
 }

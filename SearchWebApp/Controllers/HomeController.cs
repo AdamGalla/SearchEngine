@@ -12,17 +12,15 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IApiClient _apiClient;
-    private readonly IFeatureHubConfig _featureHubConfig;
+    public IClientContext _featureHubContext;
 
     public static string? _formattedData;
     public static string? _formatType;
-    public IClientContext _featureHubContext;
 
-    public HomeController(ILogger<HomeController> logger, IApiClient apiClient, IFeatureHubConfig featureHubConfig, IClientContext featureHubContext)
+    public HomeController(ILogger<HomeController> logger, IApiClient apiClient, IClientContext featureHubContext)
     {
         _logger = logger;
         _apiClient = apiClient;
-        _featureHubConfig = featureHubConfig;
         _featureHubContext = featureHubContext;
     }
 
