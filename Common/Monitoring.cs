@@ -20,6 +20,7 @@ public static class Monitoring
             .AddZipkinExporter()
             .AddConsoleExporter()
             .AddSource(ActivitySource.Name)
+            .SetSampler(new AlwaysOnSampler())
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: serviceName, serviceVersion: version))
             .Build()!;
 
