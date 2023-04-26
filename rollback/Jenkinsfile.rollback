@@ -14,7 +14,7 @@ pipeline {
                     bat "docker pull adm14/loadbalancer:%VERSION%"
                     bat "docker pull adm14/searchapi:%VERSION%"
                     bat "docker pull adm14/dataformatter:%VERSION%"
-                    bat "docker-compose up -d"
+                    bat "set BUILD_NUMBER=%VERSION% && docker-compose up --build -d"
                 }
                
             }
