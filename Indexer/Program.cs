@@ -10,7 +10,7 @@ namespace Indexer
         static void Main(string[] args)
         {
             new App().Run();
-            //new Renamer().Crawl(new DirSectoryInfo(Config.DataSourcePath));
+            //new Renamer().Crawl(new DirectoryInfo(Config.DataSourcePath));
         }
     }
 }
