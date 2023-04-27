@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net;
-using SearchWebApp.Models;
-using RestSharp;
+﻿using RestSharp;
 using Common.Shared;
 using Common;
 
@@ -13,7 +10,6 @@ public class ApiClient : IApiClient
     
     public async Task<SearchWord> GetSearchData(string input)
     {
-        Monitoring.Log.Information("Getting search datat");
         var client = new RestClient("http://localhost:9000/LoadBalancer");
         var request = new RestRequest("search/{input}", Method.Get);
         request.AddParameter("input", input, ParameterType.UrlSegment);
@@ -29,13 +25,11 @@ public class ApiClient : IApiClient
         Top10Details = response.Data.Top10Details,
         Used = response.Data.Used,
         };
-        Monitoring.Log.Information(".....");
         return response.Data;
     }
 
     public async Task<string> GetFormattedData(string formatType)
     {
-        Monitoring.Log.Information(".....");
         var client = new RestClient("http://localhost:9001/api/Formatter/");
         var request = new RestRequest("{strategy}", Method.Get);
         request.AddParameter("strategy", formatType, ParameterType.UrlSegment);
