@@ -53,4 +53,4 @@ services:
       - 5341:5341
       - 5342:80
     environment:
-      - ACCEPT_EULA=Ycd
+      - ACCEPT_EULA=Y
