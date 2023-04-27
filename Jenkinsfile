@@ -3,6 +3,17 @@ pipeline {
     triggers {
         pollSCM("* * * * *")
     }
+    post {
+        failure {
+            withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    bat 'docker login -u %USERNAME% -p %PASSWORD%'
+                    bat "docker compose down"
+                    bat "docker compose pull"
+                    bat "docker compose up --build -d"
+                }
+           
+        }
+    }
     stages {
         stage("Build") {
             steps {
