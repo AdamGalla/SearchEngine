@@ -33,8 +33,8 @@ public class FormatterController : ControllerBase
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
         Monitoring.Log.Information("Starting data format with strategy {Strategy}", strategy);
         var featureValue = _featureHubContext["dataformatter"];
-        if(featureValue.IsEnabled || featureValue == null) 
-        {
+        //if(featureValue.IsEnabled || featureValue == null) 
+        //{
             var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
             {
                 if (headers.TryGetValue(name, out var value))
@@ -65,11 +65,11 @@ public class FormatterController : ControllerBase
             Monitoring.Log.Information("Formatted data successfully: {Data}", data);
             return Ok(result);
 
-        }else
-        {
-            Monitoring.Log.Warning("Feature is disabled and cannot be used!");
-            return BadRequest("This feature is not enabled!");
-        }
+        //}else
+        //{
+        //    Monitoring.Log.Warning("Feature is disabled and cannot be used!");
+        //    return BadRequest("This feature is not enabled!");
+        //}
         
     }
 }
