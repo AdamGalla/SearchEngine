@@ -19,7 +19,7 @@ public class LoadBalancerController : ControllerBase
     [HttpGet("search/{input}")]
     public ActionResult<SearchWord> Search(string input)
     {
-        Console.WiteLine($"Started searching for Word: {input}");
+        Console.WriteLine($"Started searching for Word: {input}");
         try
         {
             var timer = Stopwatch.StartNew();
