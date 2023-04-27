@@ -3,6 +3,13 @@ pipeline {
     triggers {
         pollSCM("* * * * *")
     }
+    post {
+        failure {
+            bat "docker compose down"
+            bat "docker compose pull"
+            bat "docker compose up -d"
+        }
+    }
     stages {
         stage("Build") {
             steps {
