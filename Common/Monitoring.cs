@@ -11,6 +11,7 @@ namespace Common;
 public static class Monitoring
 {
     public static readonly ActivitySource ActivitySource = new("SearchAPI_" + Assembly.GetEntryAssembly()?.GetName().Name, "1.0.0");
+    public static ILogger Log => Serilog.Log.Logger;
     private static TracerProvider TracerProvider;
 
     static Monitoring()
@@ -28,7 +29,7 @@ public static class Monitoring
             .Build()!;
 
         // Configure logging
-        Log.Logger = new LoggerConfiguration()
+        Serilog.Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .Enrich.WithSpan()
             .WriteTo.Seq("http://localhost:5341")

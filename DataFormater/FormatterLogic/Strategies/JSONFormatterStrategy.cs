@@ -13,11 +13,10 @@ public class JSONFormatterStrategy : EventSource, IFormatterStrategy
 
         if (data == null)
         {
-            Monitoring.Log.Fatal("file data for is null");
+            Monitoring.Log.Warning("File data is null");
             return String.Empty;
         }
-        Monitoring.Log.Information("format text data");
+        Monitoring.Log.Information("Formating text data from {Data}", data);
         return await Task.Run(() => JsonConvert.SerializeObject(data));
-       // Monitoring.Log.Debug("format text async");
     }
 }

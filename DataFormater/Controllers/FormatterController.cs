@@ -31,6 +31,7 @@ public class FormatterController : ControllerBase
         //using var activity = Monitoring.ActivitySource.StartActivity(); handled by middleware
         //using var activity = Monitoring.ActivitySource.StartActivity();
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
+        Monitoring.Log.Information("Starting data format with strategy {Strategy}", strategy);
         var featureValue = _featureHubContext["dataformatter"];
         if(featureValue.IsEnabled || featureValue == null) 
         {
@@ -48,20 +49,25 @@ public class FormatterController : ControllerBase
 
             if (data is null)
             {
+                Monitoring.Log.Warning("Given data was null");
                 return BadRequest("Data can not be null!");
             }
 
             if (!Enum.TryParse<StrategyType>(strategy, out var strategyType))
             {
+                Monitoring.Log.Warning("Unknown strategy type {Strategy}", strategy);
                 return BadRequest($"Unknown strategy type {strategy}! Possible values are: {Enum.GetNames(typeof(StrategyType)).Select(s => s.ToString()).ToList()}");
             }
+            Monitoring.Log.Information("Using strategy: {Strategy}", strategy);
 
             string result = await _strategyFactory.GetStrategyType(strategyType).FormatTextAsync(data);
 
+            Monitoring.Log.Information("Formatted data successfully: {Data}", data);
             return Ok(result);
 
         }else
         {
+            Monitoring.Log.Warning("Feature is disabled and cannot be used!");
             return BadRequest("This feature is not enabled!");
         }
         
