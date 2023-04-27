@@ -1,6 +1,8 @@
 ﻿using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Serilog;
+using Serilog.Enrichers.Span;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -26,11 +28,11 @@ public static class Monitoring
             .Build()!;
 
         // Configure logging
-        /*Log.Logger = new LoggerConfiguration()
+        Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .Enrich.WithSpan()
             .WriteTo.Seq("http://localhost:5341")
             .WriteTo.Console()
-            .CreateLogger();*/
+            .CreateLogger();
     }
 }
