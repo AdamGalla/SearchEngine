@@ -9,7 +9,7 @@ pipeline {
                     bat 'docker login -u %USERNAME% -p %PASSWORD%'
                     bat "docker compose down"
                     bat "docker compose pull"
-                    bat "set /a BUILD_NUMBER-=1 && docker-compose up --build -d"
+                    bat "set /a BUILD_NUMBER-=1&& docker-compose up --build -d"
                 }
            
         }
