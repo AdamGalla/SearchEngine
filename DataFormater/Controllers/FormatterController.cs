@@ -16,12 +16,12 @@ public class FormatterController : ControllerBase
 {
     private IStrategyFactory _strategyFactory;
     private static readonly TextMapPropagator Propagator = new TraceContextPropagator();
-    public IClientContext _featureHubContext;
+    //public IClientContext _featureHubContext;
 
-    public FormatterController(IStrategyFactory strategyFactory, IClientContext featureHubContext)
+    public FormatterController(IStrategyFactory strategyFactory/*, IClientContext featureHubContext*/)
     {
         _strategyFactory = strategyFactory;
-        _featureHubContext = featureHubContext;
+        //_featureHubContext = featureHubContext;
     }
 
     // GET api/<Formatter>/{strategy}
@@ -32,7 +32,7 @@ public class FormatterController : ControllerBase
         //using var activity = Monitoring.ActivitySource.StartActivity();
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
         Monitoring.Log.Information("Starting data format with strategy {Strategy}", strategy);
-        var featureValue = _featureHubContext["dataformatter"];
+        //var featureValue = _featureHubContext["dataformatter"];
         //if(featureValue.IsEnabled || featureValue == null) 
         //{
             var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
