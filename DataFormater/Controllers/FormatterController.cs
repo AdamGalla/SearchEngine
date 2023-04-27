@@ -35,7 +35,7 @@ public class FormatterController : ControllerBase
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
         Monitoring.Log.Information("Starting data format with strategy {Strategy}", strategy);
         var featureValue = _featureHubContext["dataformatter"];
-        if (featureValue.IsEnabled || featureValue == null)
+        if (featureValue.BooleanValue == true || featureValue == null)
         {
             var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
             {
