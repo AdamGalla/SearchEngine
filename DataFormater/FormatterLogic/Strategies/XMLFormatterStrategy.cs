@@ -14,6 +14,7 @@ public class XMLFormatterStrategy : EventSource, IFormatterStrategy
         // Create a new XML document asynchronously
         XmlDocument xmlDocument = await Task.Run(() =>
         {
+            Monitoring.Log.Information("creating a new xml document asynchronously");
             XmlDocument xmlDoc = new XmlDocument();
 
             // Create the root element with column names as attributes
@@ -26,11 +27,13 @@ public class XMLFormatterStrategy : EventSource, IFormatterStrategy
             xmlDoc.AppendChild(rootElement);
 
             return xmlDoc;
+          
         });
 
         // Populate the XML document with data asynchronously
         await Task.Run(() =>
         {
+            Monitoring.Log.Information(" Populate the XML document with data asynchronously");
             XmlElement dataRowElement1 = xmlDocument.CreateElement("row");
             dataRowElement1.SetAttribute("column1", data.SearchWord);
             dataRowElement1.SetAttribute("column5", data.Used.ToString());
@@ -48,6 +51,7 @@ public class XMLFormatterStrategy : EventSource, IFormatterStrategy
         });
 
         // Serialize the XML document to a string
+        Monitoring.Log.Information("Serialize the XML document to a string");
         string xmlString = xmlDocument.OuterXml;
         
         return xmlString;
