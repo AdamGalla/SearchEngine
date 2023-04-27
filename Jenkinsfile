@@ -5,9 +5,13 @@ pipeline {
     }
     post {
         failure {
-            bat "docker compose down"
-            bat "docker compose pull"
-            bat "docker compose up -d"
+            withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    bat 'docker login -u %USERNAME% -p %PASSWORD%'
+                    bat "docker compose down"
+                    bat "docker compose pull"
+                    bat "docker compose up -d"
+                }
+           
         }
     }
     stages {
