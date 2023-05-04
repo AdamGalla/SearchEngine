@@ -1,16 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Running;
 using FeatureHubSDK;
 
 namespace TestDataFormatter;
-
-public class BenchmarkMain
-{
-    static void Main(string[] args)
-    {
-        BenchmarkRunner.Run<Benchmark>();
-    }
-}
 
 [MemoryDiagnoser]
 public class Benchmark
