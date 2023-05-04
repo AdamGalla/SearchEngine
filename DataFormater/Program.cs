@@ -13,10 +13,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IStrategyFactory>((factory) => new StrategyFactory());
 
-var featureHubCfg = new EdgeFeatureHubConfig("http://localhost:8085", "7d3099f5-71b7-45ac-bc70-fb8c1779b2e0/ZtWufdSr33UstbL26tP1stU3G0Ot6b8KBOVYumVB");
+//var featureHubCfg = new EdgeFeatureHubConfig("http://localhost:8085", "7d3099f5-71b7-45ac-bc70-fb8c1779b2e0/3n4vSUHwfkq2lSS7h2uPZlh3Tr44Nk*Ln02Jpd38c78YJsVO0jx");
 
-builder.Services.AddSingleton<IFeatureHubConfig>(featureHubConfig => featureHubCfg);
-builder.Services.AddSingleton(featureHubContext => featureHubCfg.NewContext().Build().GetAwaiter().GetResult());
+//builder.Services.AddSingleton<IFeatureHubConfig>(featureHubConfig => featureHubCfg);
+//builder.Services.AddSingleton(featureHubContext => featureHubCfg.NewContext().Build().GetAwaiter().GetResult());
 
 var app = builder.Build();
 

@@ -16,12 +16,14 @@ public class FormatterController : ControllerBase
 {
     private IStrategyFactory _strategyFactory;
     private static readonly TextMapPropagator Propagator = new TraceContextPropagator();
-    public IClientContext _featureHubContext;
+    //public IClientContext _featureHubContext;
+    //public IFeatureHubConfig _featureHubConfig;
 
-    public FormatterController(IStrategyFactory strategyFactory, IClientContext featureHubContext)
+    public FormatterController(IStrategyFactory strategyFactory/*, IClientContext featureHubContext, IFeatureHubConfig featureHubConfig*/)
     {
         _strategyFactory = strategyFactory;
-        _featureHubContext = featureHubContext;
+        //_featureHubContext = featureHubContext;
+        //_featureHubConfig = featureHubConfig;
     }
 
     // GET api/<Formatter>/{strategy}
@@ -32,9 +34,9 @@ public class FormatterController : ControllerBase
         //using var activity = Monitoring.ActivitySource.StartActivity();
         //Console.WriteLine(Monitoring.ActivitySource.HasListeners());
         Monitoring.Log.Information("Starting data format with strategy {Strategy}", strategy);
-        var featureValue = _featureHubContext["dataformatter"];
-        if(featureValue.IsEnabled || featureValue == null) 
-        {
+        //var featureValue = _featureHubContext["dataformatter"];
+        //if ((bool)(featureValue.Value) == true || featureValue == null)
+        //{
             var parentContext = Propagator.Extract(default, Request.Headers, (headers, name) =>
             {
                 if (headers.TryGetValue(name, out var value))
@@ -65,11 +67,12 @@ public class FormatterController : ControllerBase
             Monitoring.Log.Information("Formatted data successfully: {Data}", data);
             return Ok(result);
 
-        }else
-        {
-            Monitoring.Log.Warning("Feature is disabled and cannot be used!");
-            return BadRequest("This feature is not enabled!");
-        }
-        
+        //}
+        //else
+        //{
+        //    Monitoring.Log.Warning("Feature is disabled and cannot be used!");
+        //    return BadRequest("This feature is not enabled!");
+        //}
+
     }
 }
